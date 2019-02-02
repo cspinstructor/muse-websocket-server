@@ -14,15 +14,16 @@ wss.on('connection', function connection(ws) {
     console.log('received: %s', message);
   });
 
-  // setInterval(() => {
-  //   ws.send('something coolso cool yeah');
-  // }, 1000);
-
   s.on('message', (msg, rinfo) => {
-    eeg3 = String(Eeg.getEeg3(msg));
+    // eeg3 = String(Eeg.getEeg3(msg));
+    eeg3 = 'e ' + Eeg.getEeg3(msg);
     //console.log('X: ', Gyro.getX(msg), ' Y:', Gyro.getY(msg));
-    console.log('Eeg3: ', eeg3);
+    x = 'x ' + Gyro.getX(msg); //rotate around x-axis
+    y = 'y ' + Gyro.getY(msg); //roate along y-axis
+    console.log('Eeg3: ', eeg3, ' X:', x, ' Y: ', y);
     ws.send(eeg3);
+    ws.send(x);
+    // ws.send(y);
   });
 
   s.bind(7000);
